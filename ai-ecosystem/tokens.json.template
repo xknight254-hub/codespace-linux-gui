@@ -1,0 +1,7 @@
+{
+    "hermes": "YOUR_HERMES_BOT_TOKEN",
+    "coder": "YOUR_CODER_BOT_TOKEN",
+    "reasoner": "YOUR_REASONER_BOT_TOKEN",
+    "architect": "YOUR_ARCHITECT_BOT_TOKEN",
+    "scribe": "YOUR_SCRIBE_BOT_TOKEN"
+}

@@ -1,0 +1,52 @@
+# Model Configuration
+# All models served via llama.cpp OpenAI-compatible API
+
+models:
+  manager:
+    name: "Qwen3.5-4B"
+    file: "Qwen3.5-4B-Q4_K_M.gguf"
+    endpoint: "http://localhost:8080"
+    context_length: 8192
+    description: "Fast general-purpose orchestration and planning"
+
+  coder:
+    name: "Qwen2.5-Coder-7B"
+    file: "qwen2.5-coder-7b-instruct-q4_k_m.gguf"
+    endpoint: "http://localhost:8081"
+    context_length: 8192
+    description: "Specialized coding, debugging, and code generation"
+
+  researcher:
+    name: "DeepSeek-R1-7B"
+    file: "DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf"
+    endpoint: "http://localhost:8082"
+    context_length: 8192
+    description: "Deep reasoning, architecture analysis, troubleshooting"
+
+  memory:
+    name: "Mistral-Nemo-12B"
+    file: "Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q4_K_M.gguf"
+    endpoint: "http://localhost:8083"
+    context_length: 8192
+    description: "Context summarization, note organization, compression"
+
+  personality:
+    name: "Qwen3.5-4B"
+    file: "Qwen3.5-4B-Q4_K_M.gguf"
+    endpoint: "http://localhost:8084"
+    context_length: 8192
+    description: "Natural conversational interactions, immersive dialogue"
+
+# Hardware limits
+hardware:
+  total_ram_gb: 16
+  total_storage_gb: 32
+  cpu_cores: 4
+  gpu: false
+
+# Model serving defaults
+serving:
+  threads: 2
+  host: "127.0.0.1"
+  # Each model gets its own port (8080-8084)
+  # Models are loaded/unloaded on demand (only one active at a time recommended)

@@ -1,15 +1,9 @@
 {
-  "name": "Linux GUI Desktop + SSH",
-  "forwardPorts": [6080, 2222],
-  "portsAttributes": {
-    "6080": {
-      "label": "GUI Desktop (noVNC)",
-      "onAutoForward": "openPreview"
-    },
-    "2222": {
-      "label": "SSH Server",
-      "onAutoForward": "silent"
+  "name": "Codespace with SSH",
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
     }
   },
-  "postCreateCommand": "bash /workspaces/codespace-linux-gui/setup.sh 2>&1 | tee /tmp/codespace-setup.log"
+  "postCreateCommand": "echo 'SSH ready. Run: bash ~/setup.sh'"
 }

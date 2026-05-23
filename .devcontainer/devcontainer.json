@@ -1,11 +1,16 @@
 {
   "name": "Linux GUI Desktop + SSH",
-  "forwardPorts": [6080, 5901],
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "forwardPorts": [6080],
   "portsAttributes": {
     "6080": {
       "label": "GUI Desktop (noVNC)",
       "onAutoForward": "openPreview"
     }
   },
-  "postCreateCommand": "bash /workspaces/codespace-linux-gui/setup.sh"
+  "postCreateCommand": "bash /workspaces/codespace-linux-gui/setup.sh 2>&1 | tee /tmp/codespace-setup.log"
 }

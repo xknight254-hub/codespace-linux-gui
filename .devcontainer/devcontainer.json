@@ -1,11 +1,6 @@
 {
   "name": "Linux GUI Desktop + SSH",
-  "features": {
-    "ghcr.io/devcontainers/features/sshd:1": {
-      "version": "latest"
-    }
-  },
-  "forwardPorts": [6080],
+  "forwardPorts": [6080, 5901],
   "portsAttributes": {
     "6080": {
       "label": "GUI Desktop (noVNC)",

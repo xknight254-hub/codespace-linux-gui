@@ -1,14 +1,16 @@
 #!/bin/bash
 # === Codespace Linux GUI + SSH Setup ===
-# Run these commands inside your GitHub Codespace terminal
+# This script runs inside the GitHub Codespace via postCreateCommand
 
 set -e
 
+WORKSPACE="/workspaces/codespace-linux-gui"
+
 echo "🧹 Cleaning up old configs..."
-rm -f compose.yml docker-compose.yml
+rm -f "$WORKSPACE/compose.yml" "$WORKSPACE/docker-compose.yml"
 
 echo "📝 Writing docker-compose.yml..."
-cat > docker-compose.yml << 'COMPOSE_EOF'
+cat > "$WORKSPACE/docker-compose.yml" << 'COMPOSE_EOF'
 version: "3.8"
 
 services:
@@ -45,12 +47,14 @@ networks:
     driver: bridge
 COMPOSE_EOF
 
-echo "🐳 Starting containers..."
+echo "🐳 Building SSH container and starting services..."
+cd "$WORKSPACE"
+docker-compose build sshd
 docker-compose up -d
 
 echo ""
-echo "⏳ Waiting for containers to start..."
-sleep 15
+echo "⏳ Waiting for services to initialize..."
+sleep 20
 
 echo ""
 echo "📊 Container status:"
@@ -60,7 +64,14 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  ✅ SETUP COMPLETE!"
 echo ""
-echo "  🖥️  GUI Desktop:  Click Ports tab → port 7080 → Open in Browser"
-echo "  🔐 SSH Access:    ssh root@$(hostname -I | awk '{print $1}') -p 2222"
-echo "                    Password: toor"
+echo "  🖥️  GUI Desktop:"
+echo "     Click Ports tab → port 7080 → Open in Browser"
+echo "     (or open the forwarded URL in a new tab)"
+echo ""
+echo "  🔐 SSH Access:"
+echo "     ssh root@localhost -p 2222"
+echo "     Password: toor"
+echo ""
+echo "  💡 To SSH from outside, use the Codespace SSH URL"
+echo "     (see GitHub → Codespaces → Connect via SSH)"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

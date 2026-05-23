@@ -1,18 +1,22 @@
 {
-  "name": "Linux GUI + SSH",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "debian-desktop",
-  "workspaceFolder": "/config",
-  "forwardPorts": [6080, 2222],
+  "name": "Linux GUI + SSH Workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "forwardPorts": [7080, 2222],
   "portsAttributes": {
-    "6080": {
+    "7080": {
       "label": "GUI Desktop (noVNC)",
       "onAutoForward": "openPreview"
     },
     "2222": {
-      "label": "SSH Access",
+      "label": "SSH into GUI container",
       "onAutoForward": "silent"
     }
   },
-  "postCreateCommand": "echo 'Codespace ready! GUI on port 6080, SSH on port 2222'"
+  "postCreateCommand": "bash /workspaces/codespace-linux-gui/setup.sh",
+  "postStartCommand": "cd /workspaces/codespace-linux-gui && docker-compose up -d 2>/dev/null || true"
 }

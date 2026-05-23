@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  # --- GUI Desktop (noVNC) ---
+  debian-desktop:
+    image: lscr.io/linuxserver/webtop:debian-xfce
+    container_name: debian_gui
+    privileged: true
+    networks:
+      - gui-net
+    ports:
+      - "7080:3000"
+    shm_size: "2gb"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    restart: unless-stopped
+
+  # --- SSH Server ---
+  sshd:
+    build:
+      context: .
+      dockerfile: Dockerfile.ssh
+    container_name: gui_ssh
+    networks:
+      - gui-net
+    ports:
+      - "2222:22"
+    shm_size: "2gb"
+    privileged: true
+    restart: unless-stopped
+
+networks:
+  gui-net:
+    driver: bridge
